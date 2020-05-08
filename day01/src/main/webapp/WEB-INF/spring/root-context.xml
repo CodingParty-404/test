@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+
+	<!-- 예전엔 의존적인 관계일때 직접 new를 했지만 이젠 그렇게 안해. root-context.xml에서 property로 설정한다 -->
+	<!-- <bean id="chef" class="org.zerock.sample.KoreanChef"></bean> <bean 
+		id="store" class="org.zerock.sample.Restaurant"> <property name="chef" ref="chef"></property> 
+		</bean> -->
+
+<!--  bean 하나 잡을때마다 테스트 해야함
+context:component-scan은? -->
+	<context:component-scan
+		base-package="org.zerock.sample"></context:component-scan>
+
+
+
+</beans>
