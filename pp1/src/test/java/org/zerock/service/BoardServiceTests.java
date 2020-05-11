@@ -3,6 +3,7 @@ package org.zerock.service;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.BoardVO;
 import org.zerock.mapper.BoardMapperTests;
 
 import lombok.extern.log4j.Log4j;
@@ -11,5 +12,8 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class BoardServiceTests {
+	
+
+	
 
 }

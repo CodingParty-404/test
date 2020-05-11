@@ -54,10 +54,6 @@
   <script src="/resources/js/sb-admin-2.min.js"></script>
 
 
-
-  <!-- Page level custom scripts -->
-  <script src="/resources/js/demo/datatables-demo.js"></script>
-
 </body>
 
 </html>

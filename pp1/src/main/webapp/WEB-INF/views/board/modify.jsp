@@ -21,23 +21,25 @@
 		</div>
 		<div class="card-body">
 
-			<form action="/board/register" method="post">
+			<form action="/board/modify?bno=<c:out value="${board.bno}"/>" method="post">
+			
 				<div class="form-group">
 					<label for="exampleFormControlInput1">제목</label> <input
 						type="text" class="form-control" id="exampleFormControlInput1"
-						placeholder="제목작성" name = "title">
+						placeholder="제목작성" name = "title" value="<c:out value="${board.title}"/>">
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlInput1">작성자</label> <input
 						type="text" class="form-control" id="exampleFormControlInput1"
-						placeholder="작성자" name = "writer">
+						placeholder="작성자" name = "writer" value="<c:out value="${board.writer}"/>" readonly>
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlTextarea1">내용</label>
 					<textarea class="form-control" id="exampleFormControlTextarea1"
-						rows="5" name = "content"></textarea>
+						rows="5" name = "content"><c:out value="${board.content}"/></textarea>
 				</div>
-				<button type="submit" class="btn btn-primary">등록</button>
+				
+				<button type="submit" class="btn btn-primary">수정</button>
 			</form>
 		</div>
 	</div>
@@ -49,6 +51,5 @@
 		console.log("AAAAA");
 	})
 </script>
-
 
 <%@ include file="../includes/footer.jsp"%>

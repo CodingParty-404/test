@@ -54,10 +54,8 @@ public class BoardMapperTests {
 	
 	@Test
 	public void deleteTest() {
-		
-		String bno = "4849556";
-		
-		mapper.deleteBoard(bno);
+				
+		mapper.deleteBoard(4849556L);
 	}
 	
 	
@@ -66,7 +64,7 @@ public class BoardMapperTests {
 	public void updateTest() {
 		
 		// bno로 select하면 vo 하나 반환하는 SQL메서드 필요
-		BoardVO vo = mapper.selectOne("4849557");
+		BoardVO vo = mapper.selectOne(4849557L);
 			
 		vo.setTitle("bad");
 		vo.setContent("night");
