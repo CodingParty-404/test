@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cp.domain.BoardVO;
+import com.cp.dto.PageDTO;
 import com.cp.service.BoardService;
 
 import lombok.extern.log4j.Log4j;
@@ -24,17 +25,20 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
+
 	@GetMapping("/list")
-	public void list(Model model) {
+	public void list(PageDTO pageDTO, Model model) {
 		log.info("list Get............................................");
-		List<BoardVO> list = boardService.getList();
+		List<BoardVO> list = boardService.getList(pageDTO);
 		model.addAttribute("list", list);
 	}
+
 	@GetMapping("/register")
 	public void register() {
 		log.info("register Get................");
 	}
-	@PostMapping("/register")
+
+	@PostMapping({ "/register", "/modify" })
 	public String register(BoardVO vo, RedirectAttributes rttr) {
 		log.info("register post..................................");
 		log.info(vo);
@@ -43,7 +47,7 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 
-	@GetMapping("/read")
+	@GetMapping({ "/read", "/modify" })
 	public void read(Long bno, Model model) {
 		log.info("READ get.........................");
 		log.info(bno);
@@ -51,7 +55,7 @@ public class BoardController {
 		model.addAttribute("onePost", vo);
 	}
 
-	@GetMapping("/remove")
+	@GetMapping("/remove") // POST 방식으로 처리 할수있게.
 	public String remove(Long bno, RedirectAttributes rttr) {
 		log.info("remove get....................................");
 		log.info(bno);
@@ -59,18 +63,4 @@ public class BoardController {
 		rttr.addFlashAttribute("result", "success");
 		return "redirect:/board/list";
 	}
-	@GetMapping("/modify")
-	public void modify(long bno, Model model) {
-		log.info("modify get.......................................");
-		log.info(bno);
-		BoardVO vo = boardService.get(bno);
-		model.addAttribute("onePost", vo);
-		log.info(vo);
-	}
-	@PostMapping("/modify")
-	public void modify(long bno, RedirectAttributes rttr) {
-		log.info("modify Post........................");
-
-	}
-
 }

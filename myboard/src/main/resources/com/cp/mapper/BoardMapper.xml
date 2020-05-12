@@ -2,11 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cp.mapper.BoardMapper">
 	
-	<select id="getList" resultType="com.cp.domain.BoardVO">
-		select * from tbl_board where bno>0 order by bno desc limit 10
+	<select id="getList" resultType="com.cp.domain.BoardVO" parameterType="com.cp.dto.PageDTO">
+		select * from tbl_board where bno>0 order by bno desc limit #{skip},#{amount}
 	</select>
 	<select id="select" resultType="com.cp.domain.BoardVO">
 		select * from tbl_board where bno = #{bno}
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(bno) from tbl_board
 	</select>
 	
 	<insert id="insert" parameterType="com.cp.domain.BoardVO">
