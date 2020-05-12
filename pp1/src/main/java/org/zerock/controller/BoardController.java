@@ -66,14 +66,19 @@ public class BoardController {
 	}
 
 	@GetMapping({"/read", "/modify"})
-	public void read(Long bno, Model model) {
+	public void read(Long bno, Model model, Integer  page, Integer amount) {
 
 		BoardVO vo = new BoardVO(); 
-
+		log.info(page);
+		log.info(amount);
+		PageDTO dto = new PageDTO(page, amount);
+		log.info("readPage................................................................................");
+		log.info(dto);
 		vo = service.get(bno);
 		log.info(bno);
 		log.info(vo);
 
+//		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("board", vo);
 	}
 

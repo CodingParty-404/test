@@ -45,7 +45,7 @@
 
 			<ul class="nav justify-content-end">
 				<li class="nav-item"><a class="btn btn-primary" style = "margin-right:5px;" href="/board/modify?bno=<c:out value="${board.bno}"/>">수정</a></li>
-				<li class="nav-item"><a class="btn btn-primary" href="/board/list">목록</a></li>
+				<li class="nav-item"><a class="btn btn-primary" href="/board/list?<c:out value="${pageDTO}"/>">목록</a></li>
 			</ul>
 
 		</div>

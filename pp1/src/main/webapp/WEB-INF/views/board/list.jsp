@@ -20,7 +20,7 @@
 			<h6 class="m-0 font-weight-bold text-primary">${result }</h6>
 
 			<div class="form-group">
-				<label for="exampleFormControlSelect1">Amount select</label>
+				<label>Amount select</label>
 				<select class="form-control" id="select">
 					<option ${pageMaker.pageDTO.amount == 10? 'selected' : '' }>10</option>
 					<option ${pageMaker.pageDTO.amount == 20? 'selected' : '' }>20</option>
@@ -34,8 +34,6 @@
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-
-
 				<table class="table table-bordered" id="dataTable" width="100%"
 					cellspacing="0">
 					<thead>
@@ -51,21 +49,12 @@
 					<tbody>
 						<c:forEach items="${list}" var="board">
 							<tr>
-								<td><c:out value="${board.bno}">
-									</c:out></td>
-								<td><a
-									href="/board/read?bno=<c:out value = "${board.bno}"/>"> <c:out
-											value="${board.title}">
-										</c:out>
-								</a></td>
-								<td><c:out value="${board.content}">
-									</c:out></td>
-								<td><c:out value="${board.writer}">
-									</c:out></td>
-								<td><c:out value="${board.regdate}">
-									</c:out></td>
-								<td><c:out value="${board.moddate}">
-									</c:out></td>
+								<td><c:out value="${board.bno}"/></td>
+								<td><a class="goPost" href="<c:out value='${board.bno}'/>"><c:out value="${board.title}"/></a></td>
+								<td><c:out value="${board.content}"/></td>
+								<td><c:out value="${board.writer}"/></td>
+								<td><c:out value="${board.regdate}"/></td>
+								<td><c:out value="${board.moddate}"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -77,7 +66,6 @@
 						<li class="page-item"><a class="page-link" href="${pageMaker.start -1 }">Prev</a></li>
 					</c:if>
 					<c:forEach begin="${pageMaker.start}" end="${pageMaker.end }" var="num">
-						
 						<li class="page-item ${pageMaker.pageDTO.page == num ? 'active' : '' } ">
 						<a class="page-link" href="${num}">${num}</a></li>
 					</c:forEach>
@@ -146,7 +134,16 @@
 			
 		});
 		
-		
+		$(".goPost").click(function (e) {
+			e.preventDefault();
+			var bno = $(this).attr("href");
+			var bnoInput = '<input type = "hidden" name = "bno">';
+			form.attr("action","/board/read")
+			form.append(bnoInput);
+			console.log(form.find("input[name='bno']").val(bno));
+			form.submit();
+			
+		})
 			
 		
 		if (result !== '') {
