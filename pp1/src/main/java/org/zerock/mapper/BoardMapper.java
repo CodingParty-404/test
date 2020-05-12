@@ -8,8 +8,21 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.zerock.domain.BoardVO;
+import org.zerock.dto.PageDTO;
 
 public interface BoardMapper {
+	
+	// 파라미터로 페이징 처리
+	@Select("select * from tbl_board where bno > 0 order by bno desc limit #{skip}, #{amount}")
+	public List<BoardVO> getPagingList(PageDTO pageDTO);
+	
+	
+	// 총페이지를 알아보는 SQL 추가
+	@Select("select count(bno) from tbl_board")
+	int getTotal();
+	
+	
+	
 	
 	@Select("select * from tbl_board where bno > 0 order by bno desc limit 10")
 	public List<BoardVO> selectBoard();
@@ -28,8 +41,6 @@ public interface BoardMapper {
 	@Update("update tbl_board set title=#{title}, content=#{content}, moddate = now() where bno = #{bno}")
 	public int updateBoard(BoardVO vo);
 	
-	// 파라미터로 페이징 처리
-	@Select("select * from tbl_board where bno > 0 order by bno desc limit #{skip}, 10")
-	public List<BoardVO> getPagingList(@Param("skip") int skip);
+
 
 }

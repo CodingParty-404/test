@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.dto.PageDTO;
+import org.zerock.dto.PageMaker;
 
 import lombok.extern.log4j.Log4j;
 
@@ -20,6 +22,35 @@ public class BoardMapperTests {
 
 	@Autowired
 	BoardMapper mapper;
+	
+	
+	
+	@Test
+	public void test0512_2() {
+		
+		PageDTO pageDTO = new PageDTO(12, 20);
+		int total = 260;
+		// 출력 결과
+		// PageMaker(pageDTO=PageDTO(page=12, amount=20), total=260, start=11, end=13, prev=true, next=false)
+		// realEnd=13, tempEnd=20이라서 prev는 true고 next는 false다
+		
+		PageMaker maker = new PageMaker(pageDTO, total);
+		
+		log.info(maker);
+		
+		
+	}
+	
+	
+	@Test
+	public void test0512_1() {
+		
+		PageDTO pageDTO = new PageDTO(10, 10);
+		
+		mapper.getPagingList(pageDTO).forEach(vo -> log.info(vo));
+		
+	}
+
 
 	@Test
 	public void selectTest() {

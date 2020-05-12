@@ -3,6 +3,7 @@ package org.zerock.service;
 import java.util.List;
 
 import org.zerock.domain.BoardVO;
+import org.zerock.dto.PageDTO;
 
 public interface BoardService {
 	
@@ -17,6 +18,8 @@ public interface BoardService {
 	
 	BoardVO get(Long bno) throws RuntimeException;
 	
-	List<BoardVO> getList(int pageNum) throws RuntimeException;
+	List<BoardVO> getList(PageDTO pageDTO) throws RuntimeException;
+	
+	int getTotal() throws RuntimeException;
   
 }

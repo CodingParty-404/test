@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.dto.PageDTO;
+import org.zerock.dto.PageMaker;
 import org.zerock.service.BoardService;
 import org.zerock.service.BoardServiceimple;
 
@@ -27,12 +29,14 @@ public class BoardController {
 
 
 	@GetMapping("/list")
-	public void list(Model model) {
-
-		int pageNum = 1;
-
-		log.info(service.getList(pageNum));
-		model.addAttribute("list", service.getList(pageNum));
+	public void list(PageDTO pageDTO, Model model) {
+		
+		// db에서 total 가져오기
+		int total = service.getTotal();
+		
+		model.addAttribute("list", service.getList(pageDTO)); // view에 pageDTO 보내고
+		model.addAttribute("pageMaker", new PageMaker(pageDTO, total)); // view에 pageMaker 보내
+		
 	}
 
 
@@ -88,14 +92,8 @@ public class BoardController {
 	}
 
 
-	@GetMapping("/delete")
-	public String callRemove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
-		
-		return remove(bno, rttr);
-	}
-	
 
-	@RequestMapping(value = "/delete" , method =RequestMethod.POST)
+	@PostMapping(value = "/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		
 		int resultNum = service.remove(bno);

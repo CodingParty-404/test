@@ -6,7 +6,7 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">Board Register Page</h1>
+	<h1 class="h3 mb-2 text-gray-800">게시글 조회 페이지 입니다.</h1>
 	<p class="mb-4">
 		DataTables is a third party plugin that is used to generate the demo
 		table below. For more information about DataTables, please visit the <a
@@ -44,9 +44,8 @@
 			</form>
 
 			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="nav-link" href="/board/modify?bno=<c:out value="${board.bno}"/>">수정</a></li>
-				<li class="nav-item"><a class="nav-link" href="/board/delete?bno=<c:out value="${board.bno}"/>">삭제</a></li>
-				<li class="nav-item"><a class="nav-link" href="/board/list">목록</a></li>
+				<li class="nav-item"><a class="btn btn-primary" style = "margin-right:5px;" href="/board/modify?bno=<c:out value="${board.bno}"/>">수정</a></li>
+				<li class="nav-item"><a class="btn btn-primary" href="/board/list">목록</a></li>
 			</ul>
 
 		</div>

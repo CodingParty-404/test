@@ -7,6 +7,7 @@ import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.dto.PageDTO;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Setter
 public class BoardServiceimple implements BoardService {
+	
 
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper mapper;
@@ -52,11 +54,19 @@ public class BoardServiceimple implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> getList(int pageNum) throws RuntimeException {
+	public List<BoardVO> getList(PageDTO pageDTO) throws RuntimeException {
 		
-		return mapper.getPagingList((pageNum-1)*10);
+		
+		return mapper.getPagingList(pageDTO);
 	}
-
+	
+	@Override
+	public int getTotal() throws RuntimeException {
+		
+		
+		return mapper.getTotal();
+		
+	}
 
 
 }
