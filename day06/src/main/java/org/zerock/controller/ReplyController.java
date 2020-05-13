@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,13 +27,9 @@ public class ReplyController {
 	
 	@PostMapping(value="/new", produces = "text/plain")
 	public ResponseEntity<String> add(@RequestBody ReplyVO vo ){
-		
 		log.info(vo);
-		
 		mapper.insert(vo);
-		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
-		
 	}
 	
 	
@@ -40,6 +37,7 @@ public class ReplyController {
 	// p.392
 	// 레스트 컨트롤러의 모든 리턴 타입은 리스펀스 엔티티로 쓴다
 	// 경로에 적은 의미: 특정 게시물의 변수명을 알아온다
+	@CrossOrigin
 	@GetMapping("/all/{bno}")
 	public ResponseEntity<List<ReplyVO>> getAllReply(@PathVariable("bno") Long bno){
 		

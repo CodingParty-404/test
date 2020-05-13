@@ -35,8 +35,6 @@
 
 </div>
 
-
-
 <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -53,9 +51,7 @@
 		// p.403
 		// 
 	  $("#regBtn").click(function(e){
-		 
-		  var reply = {bno: 4849609 , reply: "Test Test", replyer: "kang"};
-		  
+		  var reply = {bno: 999920 , reply: "Test Test", replyer: "kang"};
 		  $.ajax({
 			  type: 'post',
 			  url:'/replies/new',
@@ -68,23 +64,34 @@
 			  }
 		  })		  
 	  });
+		replyList.click(function (e) {
+			console.log($(e.target).attr("class"));
+			
+		})
+// 	$(".repDel").click(function (e) {
+// 		console.log(this);
+// 	})
+// 	$(".repMod").click(function (e) {
+// 		console.log(this);
+// 	})
 		
 		// 정상 작동하는 코드입니다
 		getList();
 		
 		// 함수로 만들어서 실행해야지
 		function getList(){
-			
-			$.getJSON("http://localhost:8080/replies/all/4849609", function(data){
-				console.log(data);
-				
+			$.getJSON("http://127.0.0.1:8080/replies/all/999920", function(data){
 				// 돔작업은 최소화해야 한다
 				var str = "";
-				
 				for(var i = 0; i < data.length; i++){
-					str += "<div class='box'>"+ data[i].rno +"</div>";
+					str += "<div class='box'>"
+							+"rno: "+data[i].rno 
+							+" reply: "+data[i].reply
+							+" replyer: "+data[i].replyer
+							+ "<button class=replDel>DEL</button>"
+							+ "<button class=replMod>MOD</button>"
+							+ "</div>";
 				}
-				
 				replyList.append(str);
 			  })  
 		  }		  

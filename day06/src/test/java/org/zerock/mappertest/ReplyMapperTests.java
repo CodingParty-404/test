@@ -40,5 +40,21 @@ public class ReplyMapperTests {
 			mapper.insert(reply);
 		});
 	}
-	
+	@Test
+	public void testDelete()
+	{
+		long rno = 200L;
+		mapper.delete(rno);
+	}
+	@Test
+	public void tesetUpdate()
+	{
+		long rno = 1L;
+		ReplyVO reply = ReplyVO.builder()
+				.rno(rno)
+				.reply("UpdateTest")
+				.build();
+		log.info(reply);
+		mapper.update(reply);
+	}
 }
