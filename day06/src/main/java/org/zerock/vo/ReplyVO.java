@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReplyVO {
-	// db tbl_reply 湲곗�?
+	// db tbl_reply 기준
 	
 	private Long rno;
 	private Long bno;

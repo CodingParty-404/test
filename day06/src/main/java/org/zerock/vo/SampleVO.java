@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SampleVO {
-	// NoArgsConstructor?Š” JSON?•  ?•Œ ?“¸ê±°ì•¼
+	// NoArgsConstructorëŠ” JSONí•  ë•Œ ì“¸ê±°ì•¼
 	// p.361
 	
-	private Integer mno; // ?šŒ?›ë²ˆí˜¸
+	private Integer mno; // íšŒì›ë²ˆí˜¸
 	private String firstName;
 	private String lastName;
 

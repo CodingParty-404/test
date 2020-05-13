@@ -29,7 +29,7 @@ public class ReplyMapperTests {
 	@Test
 	public void testInsert()
 	{
-		long bno = 4849609L;
+		long bno = 999920L;
 		
 		IntStream.range(1, 101).forEach((i)->{
 			ReplyVO reply = ReplyVO.builder()
