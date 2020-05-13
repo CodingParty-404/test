@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.activation.DataSource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +32,9 @@ public class BoardMapperTests {
 		
 		PageDTO pageDTO = new PageDTO(12, 20);
 		int total = 260;
-		// 출력 결과
+		// 異쒕젰 寃곌낵
 		// PageMaker(pageDTO=PageDTO(page=12, amount=20), total=260, start=11, end=13, prev=true, next=false)
-		// realEnd=13, tempEnd=20이라서 prev는 true고 next는 false다
+		// realEnd=13, tempEnd=20�씠�씪�꽌 prev�뒗 true怨� next�뒗 false�떎
 		
 		PageMaker maker = new PageMaker(pageDTO, total);
 		
@@ -47,7 +49,7 @@ public class BoardMapperTests {
 		
 		PageDTO pageDTO = new PageDTO(10, 10);
 		
-		mapper.getPagingList(pageDTO).forEach(vo -> log.info(vo));
+		mapper.getList(pageDTO).forEach(vo -> log.info(vo));
 		
 	}
 
@@ -59,7 +61,7 @@ public class BoardMapperTests {
 		List<BoardVO> list = new ArrayList<>();
 		
 		
-		 list = mapper.selectBoard();
+//		 list = mapper.select(0L);
 		
 		 Iterator it = list.iterator();
 		 while(it.hasNext()){
@@ -74,11 +76,11 @@ public class BoardMapperTests {
 	public void insertTest() {
 	
 		BoardVO vo = new BoardVO();
-		vo.setTitle("한글");
-		vo.setContent("잘");
-		vo.setWriter("들어가니");
+		vo.setTitle("�븳湲�");
+		vo.setContent("�옒");
+		vo.setWriter("�뱾�뼱媛��땲");
 		
-		mapper.insertBoard(vo);
+		mapper.insert(vo);
 	}
 	
 	
@@ -86,7 +88,7 @@ public class BoardMapperTests {
 	@Test
 	public void deleteTest() {
 				
-		mapper.deleteBoard(4849556L);
+		mapper.delete(4849556L);
 	}
 	
 	
@@ -94,14 +96,27 @@ public class BoardMapperTests {
 	@Test
 	public void updateTest() {
 		
-		// bno로 select하면 vo 하나 반환하는 SQL메서드 필요
-		BoardVO vo = mapper.selectOne(4849557L);
+		// bno濡� select�븯硫� vo �븯�굹 諛섑솚�븯�뒗 SQL硫붿꽌�뱶 �븘�슂
+		BoardVO vo = mapper.select(4849557L);
 			
 		vo.setTitle("bad");
 		vo.setContent("night");
 		
 		
-		mapper.updateBoard(vo);
+		mapper.update(vo);
+	}
+	
+	
+	
+	@Test
+	public void findList() {
+		BoardVO vo = new BoardVO();
+		PageDTO dto = new PageDTO(1, 10);
+		dto.setKeyword("00947");
+		dto.setType("tcw");
+		
+		mapper.getFindList(dto).forEach(g->log.info(g));
+		
 	}
 
 }

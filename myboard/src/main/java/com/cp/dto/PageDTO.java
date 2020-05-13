@@ -8,6 +8,9 @@ import lombok.ToString;
 public class PageDTO {
 	private int page;
 	private int amount;
+	
+	private String type;
+	private String keyword;
 
 	public PageDTO(Integer page, Integer amount) {
 		super();

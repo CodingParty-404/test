@@ -84,8 +84,8 @@ function toDate (obj) {
 		var result = '<c:out value="${result}"/>';
 		if(result === "success")
 			$("#mymodal").modal("show");
-		
-		 $.getJSON("http://127.0.0.1:8080/json/getlist", function (arr) {
+		console.log("asdasd");
+		 $.getJSON("http://192.168.0.34:8080/json/getlist", function (arr) {
 				var appendTr = "";
 				for(var i in arr){
 					appendTr = "<tr><td>"+arr[i].bno+"</td>"
@@ -113,7 +113,7 @@ window.onscroll = function(e) {
     	//실행할 로직 (콘텐츠 추가)
         count++;
     	console.log(count);
-    	 $.getJSON("http://127.0.0.1:8080/json/getlist?pageNum="+count, function (arr) {
+    	 $.getJSON("http://192.168.0.34:8080/json/getlist?pageNum="+count, function (arr) {
 				var appendTr = "";
 					$('#is').children().remove()
 				for(var i in arr){
@@ -135,7 +135,7 @@ window.onscroll = function(e) {
     		count = 1;
     	
     	console.log(count);
-    	 $.getJSON("http://127.0.0.1:8080/json/getlist?pageNum="+count, function (arr) {
+    	 $.getJSON("http://192.168.0.34:8080/json/getlist?pageNum="+count, function (arr) {
 				var appendTr = "";
 					$('#is').children().remove()
 				for(var i in arr){

@@ -142,7 +142,6 @@
 			form.append(bnoInput);
 			console.log(form.find("input[name='bno']").val(bno));
 			form.submit();
-			
 		})
 			
 		

@@ -31,11 +31,11 @@ public class BoardController {
 	@GetMapping("/list")
 	public void list(PageDTO pageDTO, Model model) {
 		
-		// db에서 total 가져오기
-		int total = service.getTotal();
+		// db�뿉�꽌 total 媛��졇�삤湲�
+		int total = service.getTotal(pageDTO);
 		
-		model.addAttribute("list", service.getList(pageDTO)); // view에 pageDTO 보내고
-		model.addAttribute("pageMaker", new PageMaker(pageDTO, total)); // view에 pageMaker 보내
+		model.addAttribute("list", service.getList(pageDTO)); // view�뿉 pageDTO 蹂대궡怨�
+		model.addAttribute("pageMaker", new PageMaker(pageDTO, total)); // view�뿉 pageMaker 蹂대궡
 		
 	}
 
@@ -47,20 +47,20 @@ public class BoardController {
 	}
 
 
-	// 포스트 방식으로 들어오면
+	// �룷�뒪�듃 諛⑹떇�쑝濡� �뱾�뼱�삤硫�
 	@PostMapping("/register")
 	public String register(BoardVO vo, RedirectAttributes rttr) {
-		// post로 들어오면 리다이렉트할거야
+		// post濡� �뱾�뼱�삤硫� 由щ떎�씠�젆�듃�븷嫄곗빞
 
 		log.info(vo);
 
 		int result = service.register(vo);
-		log.info("등록된 게시글 수 result = "+result);
-		// result가 1이면 등록에 성공
+		log.info("�벑濡앸맂 寃뚯떆湲� �닔 result = "+result);
+		// result媛� 1�씠硫� �벑濡앹뿉 �꽦怨�
 
-		// 새 글이 등록했다고 성공을 알려줄거야
-		// FlashAttribute니까 세션에 저장됨
-		rttr.addFlashAttribute("result", result == 1 ? "게시글이 등록됐습니다." : "");
+		// �깉 湲��씠 �벑濡앺뻽�떎怨� �꽦怨듭쓣 �븣�젮以꾧굅�빞
+		// FlashAttribute�땲源� �꽭�뀡�뿉 ���옣�맖
+		rttr.addFlashAttribute("result", result == 1 ? "寃뚯떆湲��씠 �벑濡앸릱�뒿�땲�떎." : "");
 
 		return "redirect:/board/list";
 	}
@@ -86,12 +86,12 @@ public class BoardController {
 	public String modify(Long bno, BoardVO vo, RedirectAttributes rttr) {
 		log.info("modify post....");
 		log.info("modifiy BoardVO = "+vo);
-		//service 호출해서 성공시  리다이렉트의 플래시 파라미터에 문자열을 추가한다.
+		//service �샇異쒗빐�꽌 �꽦怨듭떆  由щ떎�씠�젆�듃�쓽 �뵆�옒�떆 �뙆�씪誘명꽣�뿉 臾몄옄�뿴�쓣 異붽��븳�떎.
 
 		int resultNum = service.modify(vo);
 		log.info(resultNum);
 
-		rttr.addFlashAttribute("result", resultNum == 1 ? "게시글이 수정됐습니다." : "");
+		rttr.addFlashAttribute("result", resultNum == 1 ? "寃뚯떆湲��씠 �닔�젙�릱�뒿�땲�떎." : "");
 
 		return "redirect:/board/list";
 	}
@@ -104,7 +104,7 @@ public class BoardController {
 		int resultNum = service.remove(bno);
 		log.info(resultNum);
 
-		rttr.addFlashAttribute("result", resultNum == 1 ? "게시글이 삭제됐습니다." : "");
+		rttr.addFlashAttribute("result", resultNum == 1 ? "寃뚯떆湲��씠 �궘�젣�릱�뒿�땲�떎." : "");
 
 		return "redirect:/board/list";
 

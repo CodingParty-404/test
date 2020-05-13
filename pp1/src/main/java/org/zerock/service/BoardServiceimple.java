@@ -29,42 +29,42 @@ public class BoardServiceimple implements BoardService {
 	@Override
 	public int register(BoardVO vo) throws RuntimeException {
 
-		// 문제가 생기면 RuntimeException 발생할거니까 이렇게만 써도 됨
-		return mapper.insertBoard(vo);
+		// 臾몄젣媛� �깮湲곕㈃ RuntimeException 諛쒖깮�븷嫄곕땲源� �씠�젃寃뚮쭔 �뜥�룄 �맖
+		return mapper.insert(vo);
 
 	}
 
 	@Override
 	public int modify(BoardVO vo) throws RuntimeException {
 		
-		 return mapper.updateBoard(vo);
+		 return mapper.update(vo);
 	}
 
 	@Override
 	public int remove(Long bno) throws RuntimeException {
 		
-		 return mapper.deleteBoard(bno);
+		 return mapper.delete(bno);
 
 	}
 
 	@Override
 	public BoardVO get(Long bno) throws RuntimeException {
 		
-		return mapper.selectOne(bno);
+		return mapper.select(bno);
 	}
 
 	@Override
 	public List<BoardVO> getList(PageDTO pageDTO) throws RuntimeException {
 		
 		
-		return mapper.getPagingList(pageDTO);
+		return mapper.getList(pageDTO);
 	}
 	
 	@Override
-	public int getTotal() throws RuntimeException {
+	public int getTotal(PageDTO pageDTO) throws RuntimeException {
 		
 		
-		return mapper.getTotal();
+		return mapper.getTotal(pageDTO);
 		
 	}
 
