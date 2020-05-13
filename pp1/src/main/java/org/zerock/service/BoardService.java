@@ -20,6 +20,8 @@ public interface BoardService {
 	
 	List<BoardVO> getList(PageDTO pageDTO) throws RuntimeException;
 	
-	int getTotal() throws RuntimeException;
+//	int getTotal() throws RuntimeException;
+
+	int getTotal(PageDTO pageDTO) throws RuntimeException;
   
 }

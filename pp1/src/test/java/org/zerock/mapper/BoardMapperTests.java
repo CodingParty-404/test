@@ -28,7 +28,7 @@ public class BoardMapperTests {
 	@Test
 	public void test0512_2() {
 		
-		PageDTO pageDTO = new PageDTO(12, 20);
+		PageDTO pageDTO = new PageDTO(1, 100);
 		int total = 260;
 		// 출력 결과
 		// PageMaker(pageDTO=PageDTO(page=12, amount=20), total=260, start=11, end=13, prev=true, next=false)
@@ -38,18 +38,27 @@ public class BoardMapperTests {
 		
 		log.info(maker);
 		
-		
 	}
 	
 	
 	@Test
 	public void test0512_1() {
 		
-		PageDTO pageDTO = new PageDTO(10, 10);
+		// 이건 카운트할때에도 필요하다
+		
+		PageDTO pageDTO = new PageDTO(1, 10);
+		// 검색조건이 없을때에도 잘 돌아간다
+		pageDTO.setType("tcw");
+		pageDTO.setKeyword("100");
 		
 		mapper.getPagingList(pageDTO).forEach(vo -> log.info(vo));
 		
+		
+		log.info("total: " + mapper.getTotal(pageDTO));
+		
 	}
+	
+
 
 
 	@Test
@@ -86,7 +95,7 @@ public class BoardMapperTests {
 	@Test
 	public void deleteTest() {
 				
-		mapper.deleteBoard(4849556L);
+		mapper.deleteBoard(999892L);
 	}
 	
 	
@@ -95,7 +104,7 @@ public class BoardMapperTests {
 	public void updateTest() {
 		
 		// bno로 select하면 vo 하나 반환하는 SQL메서드 필요
-		BoardVO vo = mapper.selectOne(4849557L);
+		BoardVO vo = mapper.selectOne(999894L);
 			
 		vo.setTitle("bad");
 		vo.setContent("night");

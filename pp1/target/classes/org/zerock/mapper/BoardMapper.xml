@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="org.zerock.mapper.BoardMapper">
+    
+    <sql id="search">
+    	<foreach collection="typeArr" item="type" separator="OR" open="AND (" close=")">
+    		<!-- eq는 숫자비교에만 쓰인다. -->
+    		<if test='type.equals("t")'>
+    		title like concat('%', #{keyword}, '%')
+    		</if>	
+    		<if test='type.equals("c")'>
+    		content like concat('%', #{keyword}, '%')
+    		</if>	
+    		<if test='type.equals("w")'>
+    		writer like concat('%', #{keyword}, '%')
+    		</if>
+    	</foreach>   
+    </sql>
+    
+    
+    
+      <select id="getPagingList" resultType="org.zerock.domain.BoardVO" parameterType="org.zerock.dto.PageDTO">
+		    select * from tbl_board
+    		where bno > 0
+    		<include refid="search"></include>
+    		order by bno desc limit #{skip}, #{amount}
+		</select>
+		
+		
+	<select id="getTotal" resultType="int" parameterType="org.zerock.dto.PageDTO">
+	<!--  카운팅할때 인덱스 타는 애를 카운팅해라 -->
+    	select count(bno) from tbl_board
+    	where bno > 0
+    	<include refid="search"></include>
+    </select>
+		
+		
+	  
+    <select id="selectBoard" resultType="org.zerock.domain.BoardVO">
+    	select * from tbl_board where bno > 0 order by bno desc limit 10
+    </select>
+     
+ 
+     <select id="selectOne" resultType="org.zerock.domain.BoardVO" parameterType="Long">
+    	select * from tbl_board where bno = ${bno}
+    </select>
+    
+    <insert id="insertBoard" parameterType="org.zerock.domain.BoardVO">
+    	insert into tbl_board (title, content, writer) values (#{title}, #{content}, #{writer})
+    </insert>
+    
+    
+     <delete id="deleteBoard" parameterType="Long">
+    	delete from tbl_board where bno = #{bno}
+    </delete>
+    
+    <update id="updateBoard"  parameterType="org.zerock.domain.BoardVO">
+    	update tbl_board set title=#{title}, content=#{content}, moddate = now() where bno = #{bno}
+    </update>
+    
+    
+    
+    
+    
+
+    </mapper>

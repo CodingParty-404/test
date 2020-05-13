@@ -60,13 +60,14 @@ public class BoardServiceimple implements BoardService {
 		return mapper.getPagingList(pageDTO);
 	}
 	
+	// 트렌젝션 처리가 되야할 필요가 있다
 	@Override
-	public int getTotal() throws RuntimeException {
-		
-		
-		return mapper.getTotal();
+	public int getTotal(PageDTO pageDTO) throws RuntimeException {
+				
+		return mapper.getTotal(pageDTO);
 		
 	}
+
 
 
 }

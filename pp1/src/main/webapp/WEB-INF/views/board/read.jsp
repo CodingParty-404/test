@@ -44,20 +44,65 @@
 			</form>
 
 			<ul class="nav justify-content-end">
-				<li class="nav-item"><a class="btn btn-primary" style = "margin-right:5px;" href="/board/modify?bno=<c:out value="${board.bno}"/>">수정</a></li>
-				<li class="nav-item"><a class="btn btn-primary" href="/board/list">목록</a></li>
+				<li class="nav-item"><a class="btn btn-primary" id="modBtn">수정</a></li>
+				<li class="nav-item"><a class="btn btn-primary" id="listBtn">목록</a></li>
 			</ul>
 
 		</div>
 	</div>
+	
+		<form id="formAction">
+		<input type="hidden" name="page" value="${pageDTO.page}">
+		<input type="hidden" name="amount" value="${pageDTO.amount}">
+
+	</form>
 
 </div>
-<!-- /.container-fluid -->
+
 <script>
 	$(document).ready(function() {
-		console.log("AAAAA");
+	
+		
+		var form = $("#formAction");
+		
+		// 목록 버튼 클릭했을 때
+		$("#listBtn").click(function(e){
+			e.preventDefault();
+			
+			window.alert("이벤트");
+			
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+					
+			form.append(type);
+			form.append(keyword);
+			form.attr("action", "/board/list");
+			form.submit();			
+		});		
+		
+		
+		// 수정 버튼 클릭했을 때
+		$("#modBtn").click(function(e){
+			e.preventDefault();
+			
+			window.alert("이벤트");
+			
+			var bno = "${board.bno}"
+			
+			console.log(bno);
+			
+ 			var str = "<input type='hidden' name='bno' value='" + bno + "' >"
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+			
+			form.append(str);
+			form.append(type);
+			form.append(keyword);
+			form.attr("action", "/board/modify");
+			form.submit();	 
+		});
 	})
-</script>
+	</script>
 
 
 <%@ include file="../includes/footer.jsp"%>

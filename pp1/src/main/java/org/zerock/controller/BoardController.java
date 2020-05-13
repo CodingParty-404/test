@@ -27,12 +27,14 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 
-
+	// 페이징 처리해서 리스트 뿌리는 메서드
 	@GetMapping("/list")
 	public void list(PageDTO pageDTO, Model model) {
 		
+		log.info("list......................");
+		log.info(pageDTO);
 		// db에서 total 가져오기
-		int total = service.getTotal();
+		int total = service.getTotal(pageDTO);
 		
 		model.addAttribute("list", service.getList(pageDTO)); // view에 pageDTO 보내고
 		model.addAttribute("pageMaker", new PageMaker(pageDTO, total)); // view에 pageMaker 보내
@@ -41,9 +43,9 @@ public class BoardController {
 
 
 	@GetMapping("/register")
-	public void register() {
+	public void register(PageDTO pageDTO, Model model) {
 
-		log.info("register.....");
+		model.addAttribute("pageDTO", pageDTO ); // view에 pageMaker 보내
 	}
 
 
@@ -64,9 +66,10 @@ public class BoardController {
 
 		return "redirect:/board/list";
 	}
+	
 
 	@GetMapping({"/read", "/modify"})
-	public void read(Long bno, Model model) {
+	public void read(Long bno, PageDTO pageDTO ,Model model) {
 
 		BoardVO vo = new BoardVO(); 
 
@@ -75,7 +78,10 @@ public class BoardController {
 		log.info(vo);
 
 		model.addAttribute("board", vo);
+		model.addAttribute("pageDTO", pageDTO);
+		
 	}
+	
 
 	@PostMapping("/modify")
 	public String modify(Long bno, BoardVO vo, RedirectAttributes rttr) {
@@ -94,11 +100,12 @@ public class BoardController {
 
 
 	@PostMapping(value = "/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, PageDTO pageDTO, Model model, RedirectAttributes rttr) {
 		
 		int resultNum = service.remove(bno);
 		log.info(resultNum);
 
+		model.addAttribute("pageDTO", pageDTO);
 		rttr.addFlashAttribute("result", resultNum == 1 ? "게시글이 삭제됐습니다." : "");
 
 		return "redirect:/board/list";

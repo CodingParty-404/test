@@ -51,6 +51,11 @@
 	
 	  
 	</form>
+	
+	<form id="formAction">
+		<input type="hidden" name="page" value="${pageDTO.page}">
+		<input type="hidden" name="amount" value="${pageDTO.amount}">	
+	</form>
 
 </div>
 <!-- /.container-fluid -->
@@ -59,25 +64,56 @@
 	$(document).ready(function() {
 		console.log("ready.....");
 		
+		var form = $("#formAction");
 		var formObj = $("#actionForm");
 		console.log(formObj);
 		
-		//delete button click
+		// 목록 버튼 클릭 시
+		$(".btn-primary").click(function(e){
+			
+			window.alert("이벤트");
+			
+			e.preventDefault();
+			
+			var p = "${pageDTO.page}"
+			var a = "${pageDTO.amount}"
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+					
+			console.log(p);
+			console.log(a);
+			
+			
+			form.find("input[name='page']").val(p);
+			form.find("input[name='amount']").val(a);
+			form.append(type);
+			form.append(keyword);
+			form.attr("action", "/board/list");
+			form.submit(); 
+			
+		});
+		
+		
+		// 삭제 버튼 클릭 시 1페이지로 이동
 		$(".btn-danger").click(function(){
 			
 			var bno = '<c:out value="${board.bno}"/>';
+			var title = $("input[name='title']").val();
+			var content = $("textarea[name='content']").val();
+			
+			console.log(bno, title, content);
 			
 			formObj.append("<input type='hidden' name='bno' value='"+bno+"'>")
-			.attr("action","/board/remove")
+			.append("<input type='hidden' name='title' value='"+title+"'>")
+			.append("<input type='hidden' name='content' value='"+content+"'>")
+			.attr("action","/board/modify")
 			.attr("method","post")
-			.submit();
+			.submit(); 
 			
 		});
 		
-		$(".btn-primary").click(function(){
-			formObj.attr("action" , "/board/list").submit();
-		});
 		
+		// 수정 완료 버튼 클릭 시 1페이지로 이동
 		$(".btn-info").click(function(){
 			
 			var bno = '<c:out value="${board.bno}"/>';
