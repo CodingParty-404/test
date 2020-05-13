@@ -26,8 +26,8 @@ public class PageDTO {
 		
 		this.page = page == null || page <= 0 ? 1 : page;
 		this.amount = amount == null || amount <= 10 ? 10 : amount;
-//		this.type = type == null ? "" : type;
-//		this.keyword = keyword == null ? "" : keyword;
+		this.type = type == null ? "" : type;
+		this.keyword = keyword == null ? "" : keyword;
 	}
 	
 	
