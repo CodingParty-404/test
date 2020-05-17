@@ -28,7 +28,7 @@ public class BoardMapperTests {
 	@Test
 	public void test0512_2() {
 		
-		PageDTO pageDTO = new PageDTO(1, 100);
+		PageDTO pageDTO = new PageDTO(1, 100, "", "");
 		int total = 260;
 		// 출력 결과
 		// PageMaker(pageDTO=PageDTO(page=12, amount=20), total=260, start=11, end=13, prev=true, next=false)
@@ -46,7 +46,7 @@ public class BoardMapperTests {
 		
 		// 이건 카운트할때에도 필요하다
 		
-		PageDTO pageDTO = new PageDTO(1, 10);
+		PageDTO pageDTO = new PageDTO(1, 10, "", "");
 		// 검색조건이 없을때에도 잘 돌아간다
 		pageDTO.setType("tcw");
 		pageDTO.setKeyword("100");

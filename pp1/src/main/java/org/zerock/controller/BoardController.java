@@ -44,7 +44,8 @@ public class BoardController {
 
 	@GetMapping("/register")
 	public void register(PageDTO pageDTO, Model model) {
-
+		
+		log.info(pageDTO);
 		model.addAttribute("pageDTO", pageDTO ); // view에 pageMaker 보내
 	}
 
@@ -76,6 +77,10 @@ public class BoardController {
 		vo = service.get(bno);
 		log.info(bno);
 		log.info(vo);
+		log.info(pageDTO.getPage());
+		log.info(pageDTO.getAmount());
+		log.info(pageDTO.getType());
+		log.info(pageDTO.getKeyword());
 
 		model.addAttribute("board", vo);
 		model.addAttribute("pageDTO", pageDTO);
@@ -84,13 +89,29 @@ public class BoardController {
 	
 
 	@PostMapping("/modify")
-	public String modify(Long bno, BoardVO vo, RedirectAttributes rttr) {
+	public String modify(Long bno, BoardVO vo, PageDTO pageDTO, RedirectAttributes rttr) {
 		log.info("modify post....");
 		log.info("modifiy BoardVO = "+vo);
 		//service 호출해서 성공시  리다이렉트의 플래시 파라미터에 문자열을 추가한다.
 
 		int resultNum = service.modify(vo);
 		log.info(resultNum);
+		
+		// 여기까진 잘 오는데
+		log.info("수정 컨트롤러");
+		log.info(pageDTO.getPage());
+		log.info(pageDTO.getAmount());
+		log.info(pageDTO.getType());
+		log.info(pageDTO.getKeyword());
+		
+		log.info(pageDTO);
+		// 여기까진 잘 살아있다가 list에서 못받는다
+
+		// 리다이렉트로 전달할땐 문자열만 보낼 수 있다
+		rttr.addAttribute("page", pageDTO.getPage());
+		rttr.addAttribute("amount", pageDTO.getAmount());
+		rttr.addAttribute("type", pageDTO.getType());
+		rttr.addAttribute("keyword", pageDTO.getKeyword());
 
 		rttr.addFlashAttribute("result", resultNum == 1 ? "게시글이 수정됐습니다." : "");
 
@@ -100,12 +121,26 @@ public class BoardController {
 
 
 	@PostMapping(value = "/remove")
-	public String remove(@RequestParam("bno") Long bno, PageDTO pageDTO, Model model, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, PageDTO pageDTO, RedirectAttributes rttr) {
 		
 		int resultNum = service.remove(bno);
 		log.info(resultNum);
+		
+		// 여기까진 잘 오는데
+		log.info("삭제 컨트롤러");
+		log.info(pageDTO.getPage());
+		log.info(pageDTO.getAmount());
+		log.info(pageDTO.getType());
+		log.info(pageDTO.getKeyword());
+		
+		log.info(pageDTO);
+		// 여기까진 잘 살아있다가 list에서 못받는다
 
-		model.addAttribute("pageDTO", pageDTO);
+		// 리다이렉트로 전달할땐 문자열만 보낼 수 있다
+		rttr.addAttribute("page", pageDTO.getPage());
+		rttr.addAttribute("amount", pageDTO.getAmount());
+		rttr.addAttribute("type", pageDTO.getType());
+		rttr.addAttribute("keyword", pageDTO.getKeyword());
 		rttr.addFlashAttribute("result", resultNum == 1 ? "게시글이 삭제됐습니다." : "");
 
 		return "redirect:/board/list";

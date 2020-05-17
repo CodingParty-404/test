@@ -42,7 +42,10 @@
 
 		</div>
 
-		<form id="actionForm"></form>
+		<form id="actionForm">
+			<input type="hidden" name="page" value="${pageDTO.page}">
+			<input type="hidden" name="amount" value="${pageDTO.amount}">
+		</form>
 	</div>
 
 </div>
@@ -53,14 +56,25 @@
 		console.log(form);
 
 		
-		//목록으로
+		//목록으로 버튼 클릭 시 
 		$(".btn-primary").click(function() {
+			
+			var p = "${pageDTO.page}"
+			var a = "${pageDTO.amount}"
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+			
+			form.append(type)
+			.append(keyword);
+			form.find("input[name='page']").val(p);
+			form.find("input[name='amount']").val(a);
 			form.attr("action","/board/list")
-			.attr("method","get")
-			.submit();
+			.attr("method","get");
+			form.submit();
 		});
 
-		//등록완료
+		
+		//등록완료 버튼 클릭 시
 		$(".btn-info").click(function() {
 			
 			var title = $("input[name=title]").val();

@@ -13,7 +13,9 @@
 			target="_blank" href="https://datatables.net">official DataTables
 			documentation</a>.
 	</p>
-	<a class="btn btn-outline-success" href="/board/register" role="button">게시글 작성</a><br>
+	<!--  <a class="btn btn-outline-success" href="/board/register" role="button">게시글 작성</a><br> -->
+	<button type="button" class="btn btn-outline-success" id="regi">게시글 작성</button>
+	
 	
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
@@ -136,6 +138,22 @@
 		var form = $("#formAction");
 		
 		
+		// 글작성 버튼을 눌렀을때
+		$("#regi").click(function(e){
+			
+			// /board/register에 get방식으로
+			// 페이지, 어마운트, 타입, 키워드 보낼거임
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+					
+			
+			form.append(type);
+			form.append(keyword);
+			form.attr("action", "/board/register");
+			form.submit(); 
+			
+		});
+		
 
 		//검색버튼을 눌렀을때
 		$("#searchcommit").click(function(e) {
@@ -161,7 +179,7 @@
 			
 		});
 		
-		// 하단의 페이지 링크를 눌렀을때
+		// 하단의 페이지 번호 링크를 눌렀을때
 		$(".page-link").click(function(e) {
 
 			e.preventDefault();
@@ -171,8 +189,8 @@
  			var type = $("#search").val();
 			var keyword = $("#keyword").val(); 
 
-			var t = type != ""? "<input type = 'hidden' name = 'type' value = '"+ type +"' >" : ""				
-			var k = keyword != "" ? "<input type = 'hidden' name = 'keyword' value = '"+ keyword +"' >" : ""
+			var t = type != ""? "<input type = 'hidden' name = 'type' value = '"+ type +"' >" : null				
+			var k = keyword != "" ? "<input type = 'hidden' name = 'keyword' value = '"+ keyword +"' >" : null
 			console.log(page);		
 			console.log(t);
 			console.log(k);	

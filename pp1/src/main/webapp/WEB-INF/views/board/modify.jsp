@@ -101,33 +101,57 @@
 			var title = $("input[name='title']").val();
 			var content = $("textarea[name='content']").val();
 			
+			// 추가해봤다
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+			var page = "<input type='hidden' name='page' value=${pageDTO.page} >"
+			var amount = "<input type='hidden' name='amount' value=${pageDTO.amount} >"
+					
 			console.log(bno, title, content);
 			
 			formObj.append("<input type='hidden' name='bno' value='"+bno+"'>")
 			.append("<input type='hidden' name='title' value='"+title+"'>")
 			.append("<input type='hidden' name='content' value='"+content+"'>")
-			.attr("action","/board/modify")
+			.append(type)
+			.append(keyword)
+			.append(page)
+			.append(amount)
+			.attr("action","/board/remove")
 			.attr("method","post")
 			.submit(); 
+			
+			// form은 한번만 날릴 수 있구나
 			
 		});
 		
 		
-		// 수정 완료 버튼 클릭 시 1페이지로 이동
+		// [수정 완료] 버튼 클릭 시 1페이지로 이동
 		$(".btn-info").click(function(){
-			
+					
 			var bno = '<c:out value="${board.bno}"/>';
 			var title = $("input[name='title']").val();
 			var content = $("textarea[name='content']").val();
 			
+			// 추가해봤다
+			var type = "${pageDTO.type}" != "" ? "<input type = 'hidden' name = 'type' value = ${pageDTO.type} >" : ""
+			var keyword = "${pageDTO.keyword}" != "" ? "<input type = 'hidden' name = 'keyword' value = ${pageDTO.keyword} >" : ""
+			var page = "<input type='hidden' name='page' value=${pageDTO.page} >"
+			var amount = "<input type='hidden' name='amount' value=${pageDTO.amount} >"
+					
 			console.log(bno, title, content);
 			
 			formObj.append("<input type='hidden' name='bno' value='"+bno+"'>")
 			.append("<input type='hidden' name='title' value='"+title+"'>")
 			.append("<input type='hidden' name='content' value='"+content+"'>")
+			.append(type)
+			.append(keyword)
+			.append(page)
+			.append(amount)
 			.attr("action","/board/modify")
 			.attr("method","post")
 			.submit(); 
+			
+			// form은 한번만 날릴 수 있구나
 			
 		});
 		
