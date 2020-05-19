@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- BoardMapper와 맵핑 시키기 -->
+<mapper namespace="org.zerock.mapper.BoardMapper">
+
+	<!-- 1. 페이징 리스트 -->
+	<!-- paging한 list 조회하기 -->
+	<!-- getPagingList -->
+	<!-- public List<BoardVO> getPagingList(PageDTO pageDTO); -->
+	<select id="getPagingList"
+		resultType="org.zerock.domain.BoardVO"
+		parameterType="org.zerock.dto.PageDTO">
+		select * from tbl_board
+		where bno > 0
+		<foreach collection="typeArr" item="type" separator="OR" open="AND (" close=")">
+			<!-- eq는 숫자비교에만 쓰인다. -->
+			<if test='type.equals("t")'>
+				title like concat('%', #{keyword}, '%')
+			</if>
+			<if test='type.equals("c")'>
+				content like concat('%', #{keyword}, '%')
+			</if>
+			<if test='type.equals("w")'>
+				writer like concat('%', #{keyword}, '%')
+			</if>
+		</foreach>
+		order by bno desc limit #{skip}, #{amount}
+	</select>
+	<!-- 일반 SQL로 쓰면 아래고, 동적 SQL로 쓰면 위에인데
+	concat은 "문자열 결합"에 사용되는 스크립트 함수다.
+	
+	select * from tbl_board
+	where bno > 0
+	AND
+	(
+	title like '%Mamba%'
+	OR
+	content like '%Mamba%'
+	OR
+	writer like '%Mamba%'
+	)
+	order by bno desc
+	limit 10, 10
+	;
+		
+	 -->
+
+
+	<!-- 2. 총량 구하기 -->
+	<!-- 데이터베이스에 있는 총 데이터 수 구하기 -->
+	<!-- getTotal -->
+	<!-- int getTotal(PageDTO pageDTO); -->
+	<select id="getTotal" resultType="int"
+		parameterType="org.zerock.dto.PageDTO">
+		<!-- 카운팅은 인덱스 타는 PK로 카운팅한다 -->
+		select count(bno) from tbl_board
+		where bno > 0
+		<foreach collection="typeArr" item="type" separator="OR"
+			open="AND (" close=")">
+			<!-- eq는 숫자비교에만 쓰인다. -->
+			<if test='type.equals("t")'>
+				title like concat('%', #{keyword}, '%')
+			</if>
+			<if test='type.equals("c")'>
+				content like concat('%', #{keyword}, '%')
+			</if>
+			<if test='type.equals("w")'>
+				writer like concat('%', #{keyword}, '%')
+			</if>
+		</foreach>
+	</select>
+	<!-- 일반 SQL로 쓰면 아래고, 동적 SQL로 쓰면 위에인데
+	concat은 "문자열 결합"에 사용되는 스크립트 함수다.
+	
+	select count(bno)
+	from tbl_board
+	where bno > 0
+	AND
+	(
+	title like '%Mamba%'
+	OR
+	content like '%Mamba%'
+	OR
+	writer like '%Mamba%'
+	)
+	;
+	
+	-->
+	
+
+
+	<!-- 3. 게시물 1건 조회 -->
+	<!-- bno 기준으로 글 1건 조회하기 -->
+	<!--  selectOne -->
+	<!-- public BoardVO selectOne(Long bno); -->
+	<select id="selectOne"
+		resultType="org.zerock.domain.BoardVO"
+		parameterType="Long">
+	select * from tbl_board where bno = ${bno}	
+	</select>
+	
+	
+	
+	<!-- 4. 게시물 등록 -->
+	<!-- BoardVO로 만들어서 db에 넣기 -->
+	<!-- insertBoard -->
+	<!-- public int insertBoard(BoardVO vo); -->
+	<insert id="insertBoard" parameterType="org.zerock.domain.BoardVO">
+	insert into tbl_board (title, content, writer)
+	values (#{title}, #{content}, #{writer}) 	
+	</insert>
+
+
+	<!-- 5. 게시물 삭제 -->
+	<!-- bno 기준으로 글 1건 삭제하기 -->
+	<!-- deleteBoard -->
+	<!-- public int deleteBoard(Long bno); -->
+	<delete id="deleteBoard"
+		parameterType="Long">
+	delete from tbl_board where bno = #{bno}
+	</delete>
+	
+	
+	<!-- 6. 게시물 수정 -->
+	<!-- BoardVO로 만들어서 db에 있던 기존 데이터 덮어쓰기 -->
+	<!-- updateBoard -->
+	<!-- public int updateBoard(BoardVO vo); -->
+	<update id="updateBoard"
+		parameterType="org.zerock.domain.BoardVO">
+	update tbl_board set
+	title=#{title}, content=#{content}, moddate = now()
+	where bno = #{bno}
+	</update>	
+
+
+
+</mapper>
